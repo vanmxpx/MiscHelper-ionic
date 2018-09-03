@@ -14,7 +14,7 @@
   "private": true,
   "config": {
     "ionic_source_map": "source-map",
-    "ionic_source_map_type": "source-map"
+    "ionic_source_map_type": "eval"
   },
   "dependencies": {
     "@angular/common": "~6.1.1",
