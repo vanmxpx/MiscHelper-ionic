@@ -1,0 +1,25 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Emulate Android",
+            "type": "shell",
+            "command": "ionic cordova emulate android -lc",
+            "problemMatcher": []
+        },
+        {
+            "label": "Serve Ionic",
+            "type": "shell",
+            "command": "ionic serve",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Windows",
+            "type": "shell",
+            "command": "ionic cordova run windows -lc",
+            "problemMatcher": []
+        }
+    ]
+}
