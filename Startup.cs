@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MiscHelper.Hubs;
 
 namespace MiscHelper
 {
@@ -27,6 +28,16 @@ namespace MiscHelper
             // {
             //     configuration.RootPath = "ClientApp/dist";
             // });
+
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
+                    builder
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins("http://localhost:4200");
+                }));
+
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,12 +57,13 @@ namespace MiscHelper
             //app.UseStaticFiles();
             //app.UseSpaStaticFiles();
 
-            app.UseMvc(routes =>
+
+
+            app.UseSignalR(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                routes.MapHub<NotifyHub>("/notify");
             });
+            app.UseMvc();
 
             app.UseSpa(spa =>
             {

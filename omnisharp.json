@@ -1,0 +1,9 @@
+{
+  "fileOptions": {
+    "excludeSearchPatterns": [
+      "build/**/*",
+      "**/plugins/**/*",
+      "plugins/*"
+    ]
+  }
+}
