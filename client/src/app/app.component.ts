@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import signalR = require('@aspnet/signalr');
+import * as signalR from "@aspnet/signalr";
 
 @Component({
   selector: 'app-root',
@@ -54,7 +54,10 @@ export class AppComponent implements OnInit {
     this._hubConnection
     .start()      
     .then(() => console.log('Connection started!'))
-    .catch(err => console.log('Error while establishing connection :('));
+    .catch(err => { 
+      console.log('Error while establishing connection :('); 
+      console.log(err);
+    });
 
     this._hubConnection.on('BroadcastMessage', (type: string, payload: string) => {
       this.presentToastWithOptions(payload);

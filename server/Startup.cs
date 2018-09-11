@@ -33,7 +33,8 @@ namespace MiscHelper
                     builder
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .WithOrigins("http://localhost:4200");
+                        .AllowAnyOrigin()
+                        .AllowCredentials();
                 }));
 
             services.AddSignalR();
@@ -42,7 +43,10 @@ namespace MiscHelper
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
+        {            
+            app.UseCors("CorsPolicy");
+            app.UseMvc();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,29 +58,29 @@ namespace MiscHelper
             }
 
             app.UseHttpsRedirection();
-            //app.UseStaticFiles();
+            app.UseStaticFiles();
             //app.UseSpaStaticFiles();
-
+            app.UseCookiePolicy();
 
 
             app.UseSignalR(routes =>
             {
                 routes.MapHub<NotifyHub>("/notify");
             });
-            app.UseMvc();
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";
+            // app.UseSpa(spa =>
+            // {
+            //     // To learn more about options for serving an Angular SPA from ASP.NET Core,
+            //     // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                //if (env.IsDevelopment())
-                //{
-                //    spa.UseAngularCliServer(npmScript: "start");
-                //}
-            });
+            //     spa.Options.SourcePath = "ClientApp";
+
+            //     //if (env.IsDevelopment())
+            //     //{
+            //     //    spa.UseAngularCliServer(npmScript: "start");
+            //     //}
+            // });
         }
     }
 }
